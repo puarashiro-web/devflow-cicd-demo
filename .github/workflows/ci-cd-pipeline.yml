@@ -1,0 +1,53 @@
+# .github/workflows/ci-cd-pipeline.yml
+# Workflow CI/CD para iniciantes - build, test e deploy simulado
+
+name: CI/CD Pipeline
+
+# Quando o workflow será executado
+on:
+  push:
+    branches:
+      - main  # executa quando há push na branch main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # VM Linux usada pelo GitHub Actions
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Faz o checkout do código do repositório para a VM
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # define versão do Node
+
+      - name: Install dependencies
+        run: npm install
+        # Instala pacotes do package.json
+
+      - name: Start server in background
+        run: |
+          # Inicia o servidor em background (sem bloquear o job)
+          nohup npm start &>/dev/null &
+          # Espera alguns segundos para o servidor ficar pronto
+          sleep 3
+
+      - name: Run tests
+        run: npm test
+        # Roda o teste; se falhar, o job para aqui
+
+  deploy:
+    needs: build-and-test  # só roda se build-and-test for bem-sucedido
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Simulate deploy
+        run: |
+          echo "🚀 Iniciando deploy simulado..."
+          echo "Aqui, em um ambiente real, o código seria copiado para o servidor e os serviços reiniciados."
+          echo "Deploy simulado concluído com sucesso!"
