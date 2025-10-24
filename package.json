@@ -1,1 +1,13 @@
-
+{
+&quot;name&quot;: &quot;devflow-cicd-demo&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;Demo simples para atividade CI/CD - DevFlow Solutions&quot;,
+&quot;main&quot;: &quot;server.js&quot;,
+&quot;scripts&quot;: {
+&quot;start&quot;: &quot;node server.js&quot;,
+&quot;test&quot;: &quot;node test.js&quot;
+},
+&quot;dependencies&quot;: {
+&quot;express&quot;: &quot;^4.18.2&quot;
+}
+}
